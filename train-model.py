@@ -1,19 +1,18 @@
 import numpy as np
 import pandas as pd
 
-ws = pd.read_excel("student.xlsx")
 
 
 def intializeDataset():
     dataset = np.array(ws)
     m = dataset.shape[0]
 
-    x = np.zeros(shape=(m, 25))
+    x = np.zeros(shape=(m, 27))
     y = np.zeros(shape=(m))
 
     for i in range(m):
-        x[i] = dataset[i][:25]
-        y[i] = dataset[i][28]
+        x[i] = dataset[i][:27]
+        y[i] = dataset[i][27]
     return x, y
 
 def compute_cost(x, y, w, b):
@@ -34,9 +33,6 @@ def compute_gradient(x, y, w, b):
     for i in range(m):
         f_wb = np.dot(w, x[i]) + b
         for j in range(n):
-            # print(f"dj_dw[j] type: {type(dj_dw)}")
-            # print(type(dj_dw[j]))
-            # print(type(((f_wb - y[i]) * x[i][j])))
             dj_dw[j] = dj_dw[j] + ((f_wb - y[i]) * x[i][j])
         dj_db = dj_db + (f_wb - y[i])
 
@@ -54,12 +50,15 @@ def gradient_descent(x, y, w_init, b_init, alpha, num_iters):
 
         if (i % 1000 == 0):
             print(f"{i}\tCost: {compute_cost(x, y, w_init, b_init)}\tW: {w_init}\tb: {b_init}")
+    
+    return w_init, b_init
 
 
 
-
+ws = pd.read_excel("data/student.xlsx")
 x, y = intializeDataset()
 w = np.zeros(x.shape[1])
 b = 0
-gradient_descent(x, y, w, b, 0.003, 10000)
-# print(y[1])
+w, b = gradient_descent(x, y, w, b, 0.003, 10000)
+
+np.savez("saved.npz", w=w, b=b)
