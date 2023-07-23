@@ -13,3 +13,6 @@ The purpose of this project was to predict the final mark of a student given som
 - Parental status: 0 == Apart or 1 == Together
 
 The rest of the data is explained in the student.txt file provided with the dataset, with the irrelevent data marked with #.
+
+Data provided from:
+Cortez,Paulo. (2014). Student Performance. UCI Machine Learning Repository. https://doi.org/10.24432/C5TG7T.
